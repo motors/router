@@ -12,9 +12,9 @@ I could not find a simple solution to run page specific javascript while also us
 
 * [Configuration](#configuration)
 * [Simple Routes](#simple-routes)
-* [Simple Routes with App](#application-routes-app)
+* [Simple Routes with App](#application-routes-with-app)
 * [Controller Routes](#controller-routes)
-* [Controller Routes with App](#controller-routes-app)
+* [Controller Routes with App](#controller-routes-with-app)
 
 ### Configuration
 
