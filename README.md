@@ -6,7 +6,7 @@ A simple, flexible, lightweight javascript router built for *non single page* ap
 
 ## Why?
 
-I could not find a simple solution to run page specific javascript while also using a module system.
+I could not find a simple solution to run page specific javascript while also using a module system. The original idea for this was to be used in coordination with a server side framework/router.
 
 ## Usage
 
@@ -80,6 +80,7 @@ var app = {
     
     },
 
+    // Specify your routes here, and the router will parse them
     routes: {
         
         ...
@@ -116,8 +117,22 @@ var landing = {
     
     },
 
-    // Executed on route
+    // Executed on route if no function is defined on route
     init: function() {
+    
+        //
+    
+    },
+    
+    // An alternative function to init if specified in the routes using the `@` notation
+    about: function() {
+    
+        //
+    
+    },
+    
+    // An alternative function to init if specified in the routes using the `@` notation
+    contact: function() {
     
         //
     
@@ -137,8 +152,14 @@ router.config({
 
 router.route({
 
-    // Finds the controller named `landing` in the router.config.controllers directory
-    'landing': 'landing'
+    // Execute landing.init on http://domain.com/landing
+    'landing': 'landing',
+
+    // Execute landing.about on http://domain.com/landing/about
+    'landing/about': 'landing@about',
+    
+    // Execute landing.contact on http://domain.com/landing/contact
+    'landing/contact': 'landing@contact'
 
 });
 
@@ -181,7 +202,10 @@ var app = {
     routes: {
     
         'landing': 'landing',
-        'user/profile/{id}': 'user.profile'
+        
+        'user/profile/{id}': 'user.profile',
+        
+        'user/profile/settings': 'user.profile@settings'
     
     }
 
