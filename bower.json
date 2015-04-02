@@ -1,0 +1,17 @@
+{
+  "name": "motors/router",
+  "version": "0.0.0",
+  "homepage": "https://github.com/motors/router",
+  "authors": [
+    "Holden Rehg <holdenrehg@gmail.com>"
+  ],
+  "description": "A non single page app javascript router.",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
