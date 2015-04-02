@@ -15,7 +15,6 @@ define(function() {
       var controllerName = parts[0];
       var methodName = parts[1];
 
-      console.log(controllers + '/' + controllerName);
       require([controllers + '/' + controllerName], function(controller) {
         cb(controller[methodName]);
       });
