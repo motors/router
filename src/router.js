@@ -1,14 +1,14 @@
 define([
-  './objects',
-  './path',
-  './controller'
+  'util/objects',
+  'util/path',
+  'util/controller'
 ], function(objects, path, controller) {
 
   var router = {
 
     // defaults
     configuration: {
-      controllers: './controllers'
+      controllers: 'controllers'
     },
 
     /**
