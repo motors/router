@@ -1,7 +1,7 @@
 define([
-  './util/objects',
-  './util/path',
-  './util/controller'
+  './src/objects',
+  './src/path',
+  './src/controller'
 ], function(objects, path, controller) {
 
   var router = {

@@ -1,5 +1,5 @@
 require([
-  '../../src/router'
+  '../../router'
 ], function(router) {
 
   var app = {

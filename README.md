@@ -8,6 +8,10 @@ A simple, flexible, lightweight javascript router built for *non single page* ap
 
 I could not find a simple solution to run page specific javascript while also using a module system. The original idea for this was to be used in coordination with a server side framework/router.
 
+## Install
+
+`bower install motors/router`
+
 ## Usage
 
 * [Configuration](#configuration)
