@@ -36,6 +36,7 @@ define([
      * @param {object} options
      */
     route: function(options) {
+      var self = this;
       var routeConfig = options.hasOwnProperty('routes') ? options.routes : (options || {});
 
       if(options.hasOwnProperty('config')) {
@@ -45,10 +46,9 @@ define([
 
       generateRoutes.call(this, routeConfig, function(routes) {
         Object.keys(routes).forEach(function(route) {
-          executeRoute(route);
           if(path.isMatch(route)) {
             routes[route](path.parameters(route));
-            this.after(options);
+            self.after(options);
           }
         });
       });
