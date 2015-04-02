@@ -1,7 +1,8 @@
 define([
   './util/objects',
-  './util/path'
-], function(objects, path) {
+  './util/path',
+  './util/controller'
+], function(objects, path, controller) {
 
   var router = {
 
@@ -19,25 +20,35 @@ define([
       objects.extend(this.configuration, configuration);
     },
 
+    before: function(app) {
+      if(app.hasOwnProperty('before')) {
+        app.before();
+      }
+    },
+
+    after: function(app) {
+      if(app.hasOwnProperty('after')) {
+        app.after();
+      }
+    },
+
     /**
      * @param {object} options
      */
     route: function(options) {
+      var routeConfig = options.hasOwnProperty('routes') ? options.routes : (options || {});
+
       if(options.hasOwnProperty('config')) {
         this.config(options.config);
       }
-      if(options.hasOwnProperty('before')) {
-        options.before();
-      }
+      this.before(options);
 
-      var routeConfig = options.hasOwnProperty('routes') ? options.routes : (options || {});
-      parseRoutes.call(this, routeConfig, function(routes) {
+      generateRoutes.call(this, routeConfig, function(routes) {
         Object.keys(routes).forEach(function(route) {
+          executeRoute(route);
           if(path.isMatch(route)) {
             routes[route](path.parameters(route));
-            if(options.hasOwnProperty('after')) {
-              options.after();
-            }
+            this.after(options);
           }
         });
       });
@@ -45,7 +56,14 @@ define([
 
   };
 
-  function parseRoutes(routeConfig, cb) {
+  /**
+   * Generate routes from the initial route configuration
+   * object provided by the user.
+   *
+   * @param routeConfig
+   * @param cb
+   */
+  function generateRoutes(routeConfig, cb) {
     var self = this;
     var routes = {};
     var toProcess = Object.keys(routeConfig).length;
@@ -53,31 +71,28 @@ define([
 
     Object.keys(routeConfig).forEach(function(key) {
       var value = routeConfig[key];
+
       if(typeof value === 'string') {
-        parseControllerMethod.call(self, value, function(fn) {
+
+        // the value is in `controller@method` format, find the function
+        controller.method(value, self.configuration.controllers, function(fn) {
           routes[key] = fn;
-          if(++processed === toProcess) {
-            cb(routes);
-          }
+          process();
         });
       } else if(typeof value === 'function') {
+
+        // the value is already a function
         routes[key] = value;
-        if(++processed === toProcess) {
-          cb(routes);
-        }
+        process()
       }
     });
-    return routes;
-  }
 
-  function parseControllerMethod(str, cb) {
-    var parts = str.split('@');
-    var controllerName = parts[0];
-    var methodName = parts[1];
-
-    require([this.configuration.controllers + '/' + controllerName], function(controller) {
-      cb(controller[methodName]);
-    });
+    // on sucess process of route name
+    function process() {
+      if(++processed === toProcess) {
+        cb(routes);
+      }
+    }
   }
 
   return router;
