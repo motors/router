@@ -22,13 +22,29 @@ I could not find a simple solution to run page specific javascript while also us
 
 ### Configuration
 
-Configration settings.
+The router uses require.js and needs these dependencies added to your
+applications require config.
+
+```js
+
+require.config({
+  paths: {
+    'util/objects': '../../src/objects',
+    'util/path': '../../src/path',
+    'util/controller': '../../src/controller'
+  }
+});
+
+```
+
+The router configuration defines the requirejs alias
+that points to your controllers directory.
 
 ```js
 
 router.config({
 
-    controllers: './controllers'
+    controllers: 'controllers'
 
 });
 
@@ -150,7 +166,7 @@ var landing = {
 
 router.config({
 
-    controllers: './controllers'
+    controllers: 'controllers'
 
 });
 
@@ -199,7 +215,7 @@ var app = {
 
     config: {
     
-        controllers: './controllers'
+        controllers: 'controllers'
         
     },
     
