@@ -1,43 +1,39 @@
-require([
-  '../../src/router'
-], function(router) {
+require([ './require-config' ], function() {
+  require([
+    '../../src/router'
+  ], function(router) {
 
-  var app = {
+    var app = {
 
-    config: {
+      routes: {
 
-      controllers: './controllers'
+        // Landing view
+        'Users/holdenrehg/Google%20Drive/dev/libs/motors/router/example/index.html': 'landing@index',
 
-    },
+        // User profile view
+        'user/{id}': function(args) {
+          console.log('On user profile with id : ' + args.id);
+        }
 
-    routes: {
+      },
 
-      // Landing view
-      'Users/holdenrehg/Google%20Drive/dev/libs/motors/router/example/index.html': 'landing@index',
+      // Executed before routing
+      before: function() {
 
-      // User profile view
-      'user/{id}': function(args) {
-        console.log('On user profile with id : ' + args.id);
+        console.log('before route!');
+
+      },
+
+      // Executed after routing
+      after: function() {
+
+        console.log('after route!');
+
       }
 
-    },
+    };
 
-    // Executed before routing
-    before: function() {
+    router.route(app);
 
-      console.log('before route!');
-
-    },
-
-    // Executed after routing
-    after: function() {
-
-      console.log('after route!');
-
-    }
-
-  };
-
-  router.route(app);
-
+  });
 });
