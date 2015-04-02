@@ -1,0 +1,20 @@
+{
+  "name": "router",
+  "version": "0.0.0",
+  "description": "## Summary",
+  "main": "router.js",
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-requirejs": "^0.4.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/motors/router.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/motors/router/issues"
+  },
+  "homepage": "https://github.com/motors/router"
+}
