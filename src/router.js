@@ -1,4 +1,7 @@
-define(function() {
+define([
+  './util/objects',
+  './util/path'
+], function(objects, path) {
 
   var router = {
 
@@ -13,7 +16,7 @@ define(function() {
      * @param configuration
      */
     config: function(configuration) {
-      extend(this.configuration, configuration);
+      objects.extend(this.configuration, configuration);
     },
 
     /**
@@ -29,10 +32,9 @@ define(function() {
 
       var routeConfig = options.hasOwnProperty('routes') ? options.routes : (options || {});
       parseRoutes.call(this, routeConfig, function(routes) {
-        var currentUrl = getCurrentUrl();
         Object.keys(routes).forEach(function(route) {
-          if(isRouteMatch(currentUrl, route)) {
-            routes[route](getParams(currentUrl, route));
+          if(path.isMatch(route)) {
+            routes[route](path.parameters(route));
             if(options.hasOwnProperty('after')) {
               options.after();
             }
@@ -75,57 +77,6 @@ define(function() {
 
     require([this.configuration.controllers + '/' + controllerName], function(controller) {
       cb(controller[methodName]);
-    });
-  }
-
-  function isRouteMatch(currentRoute, compare) {
-    var currentPathParts = currentRoute.split('/'),
-      compareParts = compare.split('/');
-
-    if (currentPathParts.length === compareParts.length) {
-      for (var i = 0; i < currentPathParts.length; i++) {
-        if (!isParam(compareParts[i])) {
-          if (compareParts[i] !== currentPathParts[i]) {
-            return false;
-          }
-        }
-      }
-      return true;
-    }
-    return false;
-  }
-
-  function isParam(str) {
-    var firstChar = str[0];
-    var lastChar = str[str.length - 1];
-    return (firstChar === '{' && lastChar === '}');
-  }
-
-  function getParams(current, path) {
-    var currentPathParts = current.split('/'),
-      pathParts = path.split('/'),
-      options = {};
-
-    for (var i = 0; i < currentPathParts.length; i++) {
-      if (isParam(pathParts[i])) {
-        var paramName = getParamName(pathParts[i]);
-        options[paramName] = currentPathParts[i];
-      }
-    }
-    return options;
-  }
-
-  function getParamName(str) {
-    return str.substr(1, str.length - 2);
-  }
-
-  function getCurrentUrl() {
-    return window.location.pathname.substr(1);;
-  }
-
-  function extend(obj1, obj2) {
-    Object.keys(obj2).forEach(function(key) {
-      obj1[key] = obj2[key];
     });
   }
 

@@ -13,7 +13,7 @@ require([
     routes: {
 
       // Landing view
-      'landing': 'landing@index',
+      'Users/holdenrehg/Google%20Drive/dev/libs/motors/router/example/index.html': 'landing@index',
 
       // User profile view
       'user/{id}': function(args) {
