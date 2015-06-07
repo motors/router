@@ -19,7 +19,7 @@ var path = {
      * @returns {boolean}
      */
     isParameter: function (str) {
-        return (str[0] === '{') && (str[str.length - 1] === '}')
+        return (str[0] === '{') && (str[str.length - 1] === '}');
     },
 
     /**
@@ -41,7 +41,7 @@ var path = {
 
         // any non parameter url parts must match
         currentPathParts.forEach(function (el, i) {
-            if (!path.isParameter(el) && el !== compareParts[i]) {
+            if (!path.isParameter(compareParts[i]) && el !== compareParts[i]) {
                 match = false;
             }
         });
