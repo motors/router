@@ -1,6 +1,6 @@
 require([ './require-config' ], function() {
   require([
-    '../../src/router'
+    '../../../src/requirejs/router'
   ], function(router) {
 
     var app = {
@@ -8,7 +8,7 @@ require([ './require-config' ], function() {
       routes: {
 
         // Landing view
-        'Users/holdenrehg/Google%20Drive/dev/libs/motors/router/example/index.html': 'landing@index',
+        'router/example/requirejs/index.html': 'landing@index',
 
         // User profile view
         'user/{id}': function(args) {

@@ -1,6 +1,4 @@
-define(function() {
-
-  var path = {
+var path = {
 
     /**
      * Get the current url path name after the domain name
@@ -9,8 +7,8 @@ define(function() {
      *
      * @returns {string}
      */
-    current: function() {
-      return window.location.pathname.substr(1);
+    current: function () {
+        return window.location.pathname.substr(1);
     },
 
     /**
@@ -20,8 +18,8 @@ define(function() {
      * @param str
      * @returns {boolean}
      */
-    isParameter: function(str) {
-      return (str[0] === '{') && (str[str.length - 1] === '}')
+    isParameter: function (str) {
+        return (str[0] === '{') && (str[str.length - 1] === '}')
     },
 
     /**
@@ -31,24 +29,24 @@ define(function() {
      * @param {string} path Path to compare against
      * @returns {boolean}
      */
-    isMatch: function(compare) {
-      var currentPathParts = path.current().split('/');
-      var compareParts = compare.split('/');
-      var match = true;
+    isMatch: function (compare) {
+        var currentPathParts = path.current().split('/');
+        var compareParts = compare.split('/');
+        var match = true;
 
-      // urls without the same number of parts cannot match
-      if(currentPathParts.length !== compareParts.length) {
-        return false;
-      }
-
-      // any non parameter url parts must match
-      currentPathParts.forEach(function(el, i) {
-        if(!path.isParameter(el) && el !== compareParts[i]) {
-          match = false;
+        // urls without the same number of parts cannot match
+        if (currentPathParts.length !== compareParts.length) {
+            return false;
         }
-      });
 
-      return match;
+        // any non parameter url parts must match
+        currentPathParts.forEach(function (el, i) {
+            if (!path.isParameter(el) && el !== compareParts[i]) {
+                match = false;
+            }
+        });
+
+        return match;
     },
 
     /**
@@ -57,8 +55,8 @@ define(function() {
      * @param {string} parameter String parameter with brackets
      * @returns {string} Name of the parameter
      */
-    parameterName: function(parameter) {
-      return parameter.substr(1, parameter.length - 2);
+    parameterName: function (parameter) {
+        return parameter.substr(1, parameter.length - 2);
     },
 
     /**
@@ -68,22 +66,20 @@ define(function() {
      * @param {string} match Url to match against
      * @returns {object} Parameter name => current url value pairs
      */
-    parameters: function(match) {
-      var currentParts = path.current().split('/');
-      var matchParts = match.split('/');
-      var options = {};
+    parameters: function (match) {
+        var currentParts = path.current().split('/');
+        var matchParts = match.split('/');
+        var options = {};
 
-      matchParts.forEach(function(el, i) {
-        if(path.isParameter(el)) {
-          options[path.parameterName(el)] = currentParts[i];
-        }
-      });
+        matchParts.forEach(function (el, i) {
+            if (path.isParameter(el)) {
+                options[path.parameterName(el)] = currentParts[i];
+            }
+        });
 
-      return options;
+        return options;
     }
 
-  };
+};
 
-  return path;
-
-});
+module.exports = path;

@@ -1,13 +1,13 @@
-define(function() {
+define(function () {
+    var landingController = {
 
-  var landingController = {
+        index: function (params) {
+            console.log('landing page! index.html');
+        }
 
-    index: function(params) {
-      console.log('welcome');
-    }
+    };
 
-  };
-
-  return landingController;
-
+    return landingController;
 });
+
+
