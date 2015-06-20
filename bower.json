@@ -1,6 +1,6 @@
 {
   "name": "motors/router",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/motors/router",
   "main": "router.js",
   "authors": [
